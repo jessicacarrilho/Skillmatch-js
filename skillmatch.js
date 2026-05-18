@@ -39,6 +39,7 @@ const vagas = [
 
     }
 ];
+
 // Calculo da compatibilidade entre o candidato e as vagas
 
 const vagasCompativeis = vagas.map(vaga => {
@@ -79,44 +80,36 @@ vagasCompativeis.forEach((vaga, index) => {
     console.log(" ");
 });
 
-//Vaga mais compatível
+//Vaga mais compatível com o perfil do candidato
 
-const vagaMaisCompatível = vagasCompativeis.reduce((maisCompatível, vagaAtual) => {
-    return vagaAtual.compatibilidade > maisCompatível.compatibilidade ? vagaAtual : maisCompatível;
-}, vagasCompativeis[0]);
-
-console.log(`Vaga mais compatível para ${candidato.nome}:\n`);
-console.log(`Compatibilidade: ${vagaMaisCompatível.compatibilidade}% | Classificação: ${vagaMaisCompatível.classificacao}`);
-console.log(`${vagaMaisCompatível.cargo} na empresa ${vagaMaisCompatível.empresa}`);
-console.log(`Salário: R$ ${vagaMaisCompatível.salario} | Modalidade: ${vagaMaisCompatível.modalidade}`);
-
-//Sugestão de estudo para o candidato, com base nas habilidades faltantes da vaga mais compatível.
-const habilidadesFaltantes = vagaMaisCompatível.habilidadesFaltantes;
-if (habilidadesFaltantes.length > 0) {
-    console.log(`\nPara aumentar suas chances de conseguir a vaga mais compatível, ${candidato.nome} pode focar em estudar as seguintes habilidades:`);
-    habilidadesFaltantes.forEach(habilidade => {
-        console.log(`- ${habilidade}`);
-    });
-} else {
-    console.log(`\nParabéns, ${candidato.nome}! Você possui todas as habilidades necessárias para a vaga mais compatível.`);
-}   
-
-class vaga {
-    constructor(empresa, cargo, requisitos, salario, modalidade) {
+class vaga{
+    constructor(id, empresa, cargo, requisitos, salario, modalidade){
+        this.id = id;
         this.empresa = empresa;
         this.cargo = cargo;
         this.requisitos = requisitos;
         this.salario = salario;
         this.modalidade = modalidade;
     }
-    exibirResumo() {
-        console.log(`Empresa: ${this.empresa}`);
-        console.log(`Cargo: ${this.cargo}`);
-        console.log(`Requisitos: ${this.requisitos.join(", ")}`);
-        console.log(`Salário: R$ ${this.salario}`);
-        console.log(`Modalidade: ${this.modalidade}`);
-    }
+}
+
+const melhorVaga = new vaga("id: 1", "TechStart", "Desenvolvedor Front-End Júnior", ["JavaScript", "Lógica de Programação", "GitHub", "Kanban"], 2800, "Remoto");
 
 
-        }
+console.log(`A vaga mais compatível para ${candidato.nome} é:`);
+console.log(`${melhorVaga.cargo} na empresa ${melhorVaga.empresa}`);
+console.log(`Salário: R$ ${melhorVaga.salario} | Modalidade: ${melhorVaga.modalidade}`);
+
+//Sugestão de estudo para o candidato melhorar a compatibilidade com as vagas
+
+class sugestaoestudo extends vaga{
+    constructor(id, empresa, cargo, requisitos, salario, modalidade){
+        super(id, empresa, cargo, requisitos, salario, modalidade);
+    }   
+}
+const sugestao = new sugestaoestudo("id: 3", "WebSolutions", "Programador JavaScript Júnior", ["JavaScript", "Arrays", "Objetos", "Funções"], 3000, "Presencial");
+
+console.log(`\n Sugestão de estudo para ${candidato.nome}:`);
+console.log(`Para aumentar a compatibilidade com a vaga de ${sugestao.cargo} na empresa ${sugestao.empresa}, é recomendado estudar os seguintes tópicos:`);
+console.log(sugestao.requisitos.filter(requisito => !candidato.habilidades.includes(requisito)).join(", "));
     
