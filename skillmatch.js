@@ -9,12 +9,26 @@ const candidato = {
     habilidades: ["JavaScript", "GitHub", "Lógica de Programação", "Kanban"],
     experienciaMeses: 3
 };
+function buscarVagasDisponiveis() {
+    console.log("Buscando vagas disponíveis...");
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(vagas);
+        }, 2000);
+    })
 
+    async function iniciarSistema() {
+        console.log(`Bem-vindo(a), ${candidato.nome}! Analisando seu perfil...`);
+        const vagasDisponiveis = await buscarVagasDisponiveis();
+        console.log("Vagas disponíveis encontradas!");
+    }
+}
+       
 const vagas = [
-    {
-        id: 1,
-        empresa: "TechStart",
-        cargo: "Desenvolvedor Front-End Júnior",
+    { 
+        id: 1, 
+        empresa: "TechStart", 
+        cargo: "Desenvolvedor Front-End Júnior", 
         requisitos: ["JavaScript", "Lógica de Programação", "GitHub", "Kanban"],
         salario: 2800,
         modalidade: "Remoto",
@@ -39,7 +53,7 @@ const vagas = [
 
     }
 ];
-
+    
 // Calculo da compatibilidade entre o candidato e as vagas
 
 const vagasCompativeis = vagas.map(vaga => {
@@ -82,34 +96,48 @@ vagasCompativeis.forEach((vaga, index) => {
 
 //Vaga mais compatível com o perfil do candidato
 
-class vaga{
-    constructor(id, empresa, cargo, requisitos, salario, modalidade){
+class Vaga{
+    constructor(id, empresa, cargo, requisitos, salario, modalidade, compatibilidade){
         this.id = id;
         this.empresa = empresa;
         this.cargo = cargo;
         this.requisitos = requisitos;
         this.salario = salario;
         this.modalidade = modalidade;
+        this.compatibilidade = compatibilidade;
+    }
+    exibirCompatibilidade(){
+        console.log(`A vaga de ${this.cargo} na empresa ${this.empresa} tem uma compatibilidade de ${this.compatibilidade}%`);
     }
 }
 
-const melhorVaga = new vaga("id: 1", "TechStart", "Desenvolvedor Front-End Júnior", ["JavaScript", "Lógica de Programação", "GitHub", "Kanban"], 2800, "Remoto");
+
+const melhorVaga = new Vaga("id: 1", "TechStart", "Desenvolvedor Front-End Júnior", ["JavaScript", "Lógica de Programação", "GitHub", "Kanban"], 2800, "Remoto", 100);
 
 
 console.log(`A vaga mais compatível para ${candidato.nome} é:`);
 console.log(`${melhorVaga.cargo} na empresa ${melhorVaga.empresa}`);
 console.log(`Salário: R$ ${melhorVaga.salario} | Modalidade: ${melhorVaga.modalidade}`);
+melhorVaga.exibirCompatibilidade();
 
 //Sugestão de estudo para o candidato melhorar a compatibilidade com as vagas
 
-class sugestaoestudo extends vaga{
+class SugestaoEstudo extends Vaga{
     constructor(id, empresa, cargo, requisitos, salario, modalidade){
         super(id, empresa, cargo, requisitos, salario, modalidade);
     }   
 }
-const sugestao = new sugestaoestudo("id: 3", "WebSolutions", "Programador JavaScript Júnior", ["JavaScript", "Arrays", "Objetos", "Funções"], 3000, "Presencial");
+const sugestao = new SugestaoEstudo("id: 3", "WebSolutions", "Programador JavaScript Júnior", ["JavaScript", "Arrays", "Objetos", "Funções"], 3000, "Presencial");
 
 console.log(`\n Sugestão de estudo para ${candidato.nome}:`);
 console.log(`Para aumentar a compatibilidade com a vaga de ${sugestao.cargo} na empresa ${sugestao.empresa}, é recomendado estudar os seguintes tópicos:`);
 console.log(sugestao.requisitos.filter(requisito => !candidato.habilidades.includes(requisito)).join(", "));
     
+
+function finalizarAnalise(nomeCandidato, callback) {
+    console.log(`Análise finalizada para ${nomeCandidato}.`);
+    callback(nomeCandidato);
+}
+function exibirMensagemFinal (nome) {
+    console.log(`Boa sorte, ${nome}! Continue se aprimorando e buscando oportunidades!`);
+}
