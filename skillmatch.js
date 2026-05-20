@@ -9,21 +9,21 @@ const candidato = {
     habilidades: ["JavaScript", "GitHub", "Lógica de Programação", "Kanban"],
     experienciaMeses: 3
 };
-function buscarVagasDisponiveis() {
-    console.log("Buscando vagas disponíveis...");
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(vagas);
-        }, 2000);
-    })
+     function criarCandidato(nome, habilidades) {
+        let _habilidades = [...habilidades];
+        return {
+            nome,
+            getHabilidades() {
+                return _habilidades;
+            }
+        };
+        }
+        const candidatoProtegido = criarCandidato(candidato.nome, candidato.habilidades);
+        console.log(`Candidato: ${candidatoProtegido.nome}`);
+        console.log(`Habilidades: ${candidatoProtegido.getHabilidades().join(", ")}\n`);
+         
+            
 
-    async function iniciarSistema() {
-        console.log(`Bem-vindo(a), ${candidato.nome}! Analisando seu perfil...`);
-        const vagasDisponiveis = await buscarVagasDisponiveis();
-        console.log("Vagas disponíveis encontradas!");
-    }
-}
-       
 const vagas = [
     { 
         id: 1, 
@@ -53,8 +53,11 @@ const vagas = [
 
     }
 ];
-    
+
+
 // Calculo da compatibilidade entre o candidato e as vagas
+
+
 
 const vagasCompativeis = vagas.map(vaga => {
     const habilidadesEncontradas = vaga.requisitos.filter(requisito =>
@@ -107,7 +110,7 @@ class Vaga{
         this.compatibilidade = compatibilidade;
     }
     exibirCompatibilidade(){
-        console.log(`A vaga de ${this.cargo} na empresa ${this.empresa} tem uma compatibilidade de ${this.compatibilidade}%`);
+        console.log(`A vaga de ${this.cargo} na empresa ${this.empresa} tem uma compatibilidade de ${this.compatibilidade.toFixed(2)}%`);
     }
 }
 
@@ -133,11 +136,3 @@ console.log(`\n Sugestão de estudo para ${candidato.nome}:`);
 console.log(`Para aumentar a compatibilidade com a vaga de ${sugestao.cargo} na empresa ${sugestao.empresa}, é recomendado estudar os seguintes tópicos:`);
 console.log(sugestao.requisitos.filter(requisito => !candidato.habilidades.includes(requisito)).join(", "));
     
-
-function finalizarAnalise(nomeCandidato, callback) {
-    console.log(`Análise finalizada para ${nomeCandidato}.`);
-    callback(nomeCandidato);
-}
-function exibirMensagemFinal (nome) {
-    console.log(`Boa sorte, ${nome}! Continue se aprimorando e buscando oportunidades!`);
-}
