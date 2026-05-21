@@ -3,32 +3,45 @@
 //=======================================================================================
 
 //Dados do candidato e das vagas disponíveis
+
+function bemVindo() {
+    return new Promise((resolve) => setTimeout(resolve,3000));
+}
+
+async function iniciarSistema() {
+    console.log(`Bem-vindo ao Skillmatch-JS! Vamos encontrar as melhores vagas para você.`);
+    
+
+
 const candidato = {
     nome: "Mariana Silva",
     area: "Front-End",
     habilidades: ["JavaScript", "GitHub", "Lógica de Programação", "Kanban"],
     experienciaMeses: 3
 };
-     function criarCandidato(nome, habilidades) {
-        let _habilidades = [...habilidades];
-        return {
-            nome,
-            getHabilidades() {
-                return _habilidades;
-            }
-        };
+
+function criarCandidato(nome, habilidades) {
+    let _habilidades = [...habilidades];
+    return {
+        nome,
+        getHabilidades() {
+            return _habilidades;
         }
-        const candidatoProtegido = criarCandidato(candidato.nome, candidato.habilidades);
-        console.log(`Candidato: ${candidatoProtegido.nome}`);
-        console.log(`Habilidades: ${candidatoProtegido.getHabilidades().join(", ")}\n`);
-         
-            
+    };
+}
+const candidatoProtegido = criarCandidato(candidato.nome, candidato.habilidades);
+console.log(`Candidato: ${candidatoProtegido.nome}`);
+console.log(`Habilidades: ${candidatoProtegido.getHabilidades().join(", ")}\n`);
+console.log("Analisando seu perfil e as vagas disponíveis...\n");
+console.log("isso pode levar alguns segundos, por favor aguarde...\n");
+
+await bemVindo();
 
 const vagas = [
-    { 
-        id: 1, 
-        empresa: "TechStart", 
-        cargo: "Desenvolvedor Front-End Júnior", 
+    {
+        id: 1,
+        empresa: "TechStart",
+        cargo: "Desenvolvedor Front-End Júnior",
         requisitos: ["JavaScript", "Lógica de Programação", "GitHub", "Kanban"],
         salario: 2800,
         modalidade: "Remoto",
@@ -54,10 +67,7 @@ const vagas = [
     }
 ];
 
-
 // Calculo da compatibilidade entre o candidato e as vagas
-
-
 
 const vagasCompativeis = vagas.map(vaga => {
     const habilidadesEncontradas = vaga.requisitos.filter(requisito =>
@@ -99,8 +109,8 @@ vagasCompativeis.forEach((vaga, index) => {
 
 //Vaga mais compatível com o perfil do candidato
 
-class Vaga{
-    constructor(id, empresa, cargo, requisitos, salario, modalidade, compatibilidade){
+class Vaga {
+    constructor(id, empresa, cargo, requisitos, salario, modalidade, compatibilidade) {
         this.id = id;
         this.empresa = empresa;
         this.cargo = cargo;
@@ -109,14 +119,12 @@ class Vaga{
         this.modalidade = modalidade;
         this.compatibilidade = compatibilidade;
     }
-    exibirCompatibilidade(){
+    exibirCompatibilidade() {
         console.log(`A vaga de ${this.cargo} na empresa ${this.empresa} tem uma compatibilidade de ${this.compatibilidade.toFixed(2)}%`);
     }
 }
 
-
 const melhorVaga = new Vaga("id: 1", "TechStart", "Desenvolvedor Front-End Júnior", ["JavaScript", "Lógica de Programação", "GitHub", "Kanban"], 2800, "Remoto", 100);
-
 
 console.log(`A vaga mais compatível para ${candidato.nome} é:`);
 console.log(`${melhorVaga.cargo} na empresa ${melhorVaga.empresa}`);
@@ -125,14 +133,16 @@ melhorVaga.exibirCompatibilidade();
 
 //Sugestão de estudo para o candidato melhorar a compatibilidade com as vagas
 
-class SugestaoEstudo extends Vaga{
-    constructor(id, empresa, cargo, requisitos, salario, modalidade){
+class SugestaoEstudo extends Vaga {
+    constructor(id, empresa, cargo, requisitos, salario, modalidade) {
         super(id, empresa, cargo, requisitos, salario, modalidade);
-    }   
+    }
 }
 const sugestao = new SugestaoEstudo("id: 3", "WebSolutions", "Programador JavaScript Júnior", ["JavaScript", "Arrays", "Objetos", "Funções"], 3000, "Presencial");
 
-console.log(`\n Sugestão de estudo para ${candidato.nome}:`);
+console.log(`Sugestão de estudo para ${candidato.nome}:`);
 console.log(`Para aumentar a compatibilidade com a vaga de ${sugestao.cargo} na empresa ${sugestao.empresa}, é recomendado estudar os seguintes tópicos:`);
 console.log(sugestao.requisitos.filter(requisito => !candidato.habilidades.includes(requisito)).join(", "));
-    
+}
+
+iniciarSistema();
