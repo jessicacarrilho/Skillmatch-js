@@ -143,6 +143,18 @@ async function iniciarSistema() {
     console.log(`Sugestão de estudo para ${candidato.nome}:`);
     console.log(`Para aumentar a compatibilidade com a vaga de ${sugestao.cargo} na empresa ${sugestao.empresa}, é recomendado estudar os seguintes tópicos:`);
     console.log(sugestao.requisitos.filter(requisito => !candidato.habilidades.includes(requisito)).join(", "));
+
+
+    function finalizarAnalise(nomeCandidato, callback) {
+    console.log("\nAnálise finalizada!");
+    callback(nomeCandidato);
+}
+
+function exibirMensagemFinal(nome) {
+    console.log(`${nome}, revise suas habilidades faltantes e atualize seu plano de estudos. Boa sorte! 🚀`);
+}
+finalizarAnalise(candidato.nome, exibirMensagemFinal);
 }
 
 iniciarSistema();
+

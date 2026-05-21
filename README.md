@@ -76,6 +76,7 @@ Classes = Classe Vaga com atributos e métodos
 Construtor = constructor na classe Vaga
 Herança = Classe SugestaoEstudo que herda de Vaga
 this = Usado nos métodos da classe Vaga
+callback = Função finalizarAnalise recebe exibirMensagemFinal como parâmetro para exibir a mensagem final
 Closure = Função criarCandidato protege as habilidades da candidata
 Promise = Simulação de carregamento assíncrono das vagas
 async/await = Função iniciarSistema aguarda cada etapa antes de continuar
