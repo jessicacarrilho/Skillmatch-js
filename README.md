@@ -5,7 +5,7 @@ Módulo 01 | Semana 06 | Turma Front-End React
 
 Link do Kanban: https://trello.com/b/OBp6MJZS/skillmatch-js
 Link do GitHub: https://github.com/jessicacarrilho/Skillmatch-js.git
-Link do Vídeo:
+Link do Vídeo:  https://drive.google.com/file/d/11vKnHpFB9mJs-Ig6Mc9DPLy5p3NQ5jba/view
 
 ## Sobre o Projeto:
 O Skillmatch JS é um simulador simples de compatibilidade entre um candidato e vagas de front-end júnior.
